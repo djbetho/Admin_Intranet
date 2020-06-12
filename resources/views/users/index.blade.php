@@ -13,6 +13,10 @@
             </div>
             <div class="card-body">
               @can('users.create')
+
+                <a href="{{ route('user.pdf') }}" class="btn btn-sm btn-primary">  Exportar datos a <span class="material-icons"> picture_as_pdf</span></a>
+                <a href=" " class="btn btn-sm btn-primary">  Importar datos  <span class="material-icons"> publish</span></a>
+
               <div class="row">
                 <div class="col-12 text-right">
                   <a href="{{ route('user.create')  }}" class="btn btn-sm btn-primary">Agregar nuevo Usuario</a>
@@ -76,7 +80,7 @@
                               <td width="5px">
                                {{ $user->telefono }}
                               </td>
-                             
+
 
                               @can('users.edit')
                               <td class="td-actions text-right">

@@ -97,6 +97,9 @@ Route::middleware(['auth'])->group(function(){
 	Route::get('users/{id}/edit','UserController@edit')->name('user.edit')
 			->middleware('has.permission:user.edit');
 
+	Route::get('user_list_pdf','UserController@exportPdf')->name('user.pdf')
+					->middleware('has.permission:user.create');
+
 //solicitud
 	Route::post('solicitud/store','SolicitudController@store')->name('solicitud.store')
 			->middleware('has.permission:solicitud.create');

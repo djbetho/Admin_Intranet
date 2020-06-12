@@ -5,9 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Caffeinated\Shinobi\Models\Role;
 use App\User;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class UserController extends Controller
 {
+
+
+    public function exportPdf(){
+      $users = User::get();
+      $pdf  = PDF::loadView('pdf.user',compact('users'));
+
+      return $pdf->download('user_list.pdf');
+    }
     /**
      * Display a listing of the users
      *

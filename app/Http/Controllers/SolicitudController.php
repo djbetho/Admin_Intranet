@@ -51,9 +51,9 @@ class SolicitudController extends Controller
       //Necesito sabaer la cantidad de dias de permisos ya solicitado en este semestre
       $cantidad  =  RecordSolicitud::where('rut', '=', auth()->user()->rut)
                                       ->where('fecha_desde', '<=',$actual->format('Y-m-d'))
-                                      ->where("fecha_hasta",">=",$actual->format('Y-m-d'))->get();
+                                      ->where("fecha_hasta",">=",$actual->format('Y-m-d'))->first();
 
-            dd($cantidad);
+          //  dd($cantidad);
 
 
         // Mostramos un formulario para crear nuevos ejemplos
