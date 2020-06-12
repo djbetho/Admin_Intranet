@@ -12,5 +12,6 @@ class SolicitudHistorial extends Seeder
     public function run()
     {
         //
+      
     }
 }

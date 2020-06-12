@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <!-- CSS Files -->
     <link href="{{ asset('material') }}/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
+    <!--     Fonts and icons     -->
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="{{ asset('material') }}/demo/demo.css" rel="stylesheet" />
     </head>
@@ -27,7 +30,7 @@
         @guest()
             @include('layouts.page_templates.guest')
         @endguest
-        
+
       <!--   <div class="fixed-plugin">
           <div class="dropdown show-dropdown">
             <a href="#" data-toggle="dropdown">
@@ -69,17 +72,10 @@
                   <img src="{{ asset('material') }}/img/sidebar-4.jpg" alt="">
                 </a>
               </li>
-              <li class="button-container">
-                <a href="https://www.creative-tim.com/product/material-dashboard-laravel" target="_blank" class="btn btn-primary btn-block">Free Download</a>
-              </li>
-                <li class="header-title">Want more components?</li>
-                  <li class="button-container">
-                      <a href="https://www.creative-tim.com/product/material-dashboard-pro" target="_blank" class="btn btn-warning btn-block">
-                        Get the pro version
-                      </a>
-                  </li> -->
-              
-            
+
+               -->
+
+
             </ul>
           </div>
         </div> -->
@@ -117,7 +113,7 @@
         <!-- Library for adding dinamically elements -->
         <script src="{{ asset('material') }}/js/plugins/arrive.min.js"></script>
         <!--  Google Maps Plugin    -->
-        
+
         <!-- Chartist JS -->
         <script src="{{ asset('material') }}/js/plugins/chartist.min.js"></script>
         <!--  Notifications Plugin    -->
@@ -127,6 +123,54 @@
         <!-- Material Dashboard DEMO methods, don't include it in your project! -->
         <script src="{{ asset('material') }}/demo/demo.js"></script>
         <script src="{{ asset('material') }}/js/settings.js"></script>
+        <!-- IDIOMA/REGION -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.es.min.js"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/es.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js"></script>
+
+        <script type="text/javascript">
+
+          var countChecked = function() {
+          var n = $( "input:checked" ).length;
+          console.log( n + (n === 0 ? $("#fecha_hasta").hide() : $("#fecha_hasta").show() ));
+        };
+          countChecked();
+            $("#cantidad_dias").prop('readonly', true);
+          $( "input[type=checkbox]" ).on( "click", countChecked );
+
+
+          $('.datetimepicker').datetimepicker({
+              locale: 'es',
+              icons: {
+
+                  date: "fa fa-calendar",
+                  up: "fa fa-chevron-up",
+                  down: "fa fa-chevron-down",
+                  previous: 'fa fa-chevron-left',
+                  next: 'fa fa-chevron-right',
+                  today: 'fa fa-screenshot',
+                  clear: 'fa fa-trash',
+                  close: 'fa fa-remove',
+
+              },
+                 format: 'DD-MM-YYYY'
+          });
+
+
+          if( $("#fecha_hasta").hide()) {
+              $("#cantidad_dias").val(1);
+          }
+
+    $("#fecha_hasta").on("dp.change", function(e) {
+
+      var fechaEmision = moment(document.getElementById('fecha_desde').value, 'DD-MM-YYYY');
+      var fechaExpiracion = moment(document.getElementById('fecha_hasta').value, 'DD-MM-YYYY');
+      var diasDiferencia = fechaExpiracion.diff(fechaEmision, 'days')+1;
+    //  $("#cantidad_dias").val(diasDiferencia);
+    });
+
+
+        </script>
         @stack('js')
     </body>
 </html>

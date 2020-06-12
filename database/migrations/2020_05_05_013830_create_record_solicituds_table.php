@@ -13,16 +13,17 @@ class CreateRecordSolicitudsTable extends Migration
      */
     public function up()
     {
-     
+
          Schema::create('record_solicituds', function (Blueprint $table) {
             $table->id()->unique();
             $table->string('rut');
-            $table->string('detalle')->nullable();
+            $table->string('detalle',255)->nullable();
             $table->string('fecha_desde')->nullable();
             $table->string('fecha_hasta')->nullable();
             $table->integer('cs')->nullable();
-            $table->string('reemplazo')->nullable();
+            $table->string('reemplazo',255)->nullable();
             $table->integer('estado')->nullable();
+            $table->integer('cantidad_dias')->nullable();
             $table->timestamps();
         });
     }

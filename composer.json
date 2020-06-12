@@ -9,13 +9,16 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
+        "caffeinated/shinobi": "^5.1",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
         "laravel-frontend-presets/material-dashboard": "^1.1",
         "laravel/framework": "^7.1.3",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "^2.0"
+        "laravel/ui": "^2.0",
+        "laravelcollective/html": "^6.1",
+        "nesbot/carbon": "^2.34"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
