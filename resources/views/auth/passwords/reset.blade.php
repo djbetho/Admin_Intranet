@@ -1,4 +1,4 @@
-@extends('layouts.app', ['class' => 'off-canvas-sidebar', 'activePage' => '', 'title' => __('Material Dashboard')])
+@extends('layouts.app', ['class' => 'off-canvas-sidebar', 'activePage' => '', 'title' => __('Restablecer la contraseña')])
 
 @section('content')
 <div class="container" style="height: auto;">
@@ -10,7 +10,7 @@
         <input type="hidden" name="token" value="{{ $token }}">
         <div class="card card-login card-hidden mb-3">
           <div class="card-header card-header-primary text-center">
-            <h4 class="card-title"><strong>{{ __('Reset Password') }}</strong></h4>
+            <h4 class="card-title"><strong>{{ __('Restablecer la contraseña') }}</strong></h4>
           </div>
           <div class="card-body ">
             <div class="bmd-form-group{{ $errors->has('email') ? ' has-danger' : '' }} mt-3">
@@ -60,7 +60,7 @@
             </div>
           </div>
           <div class="card-footer justify-content-center">
-            <button type="submit" class="btn btn-primary btn-link btn-lg">{{ __('Reset Password') }}</button>
+            <button type="submit" class="btn btn-primary btn-link btn-lg">{{ __('Restablecer la contraseña') }}</button>
           </div>
         </div>
       </form>
