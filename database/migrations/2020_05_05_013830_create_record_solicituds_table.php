@@ -24,6 +24,7 @@ class CreateRecordSolicitudsTable extends Migration
             $table->string('reemplazo',255)->nullable();
             $table->integer('estado')->nullable();
             $table->integer('cantidad_dias')->nullable();
+            $table->string('semestre')->nullable();
             $table->timestamps();
         });
     }

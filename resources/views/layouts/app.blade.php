@@ -130,6 +130,9 @@
 
         <script type="text/javascript">
 
+    
+
+
           var countChecked = function() {
           var n = $( "input:checked" ).length;
           console.log( n + (n === 0 ? $("#fecha_hasta").hide() : $("#fecha_hasta").show() ));

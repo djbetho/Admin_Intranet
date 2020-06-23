@@ -22,6 +22,15 @@ class SolicitudController extends Controller
     public function index(Request $request)
     {
         //
+        $count_acep = RecordSolicitud::Count('estado')->where('estado','1')->first();
+        $count_pend = RecordSolicitud::Count('estado')->where('estado',NULL)->first();
+        $suma = $count_acep->count();
+        $sumaP = $count_pend->count();
+        $actual = Carbon::now();
+
+        //Semestre actual
+        $lista     = semestre::where('fecha_ini', '<=',$actual->format('Y-m-d'))
+                              ->where("fecha_term",">=",$actual->format('Y-m-d'))->first();
 
 
         $detalle  = $request->get('detalle');
@@ -33,7 +42,10 @@ class SolicitudController extends Controller
 
 
 
-        return view('pages.index',['solicitud'=>$solicitud] );
+        return view('pages.index',['solicitud'            =>$solicitud,
+                                  'nombre_semestre_actual'=>$lista,
+                                  'cantidad_per'          => $suma,
+                                  'cantidad_p'            => $sumaP]);
     }
 
     /**
@@ -45,13 +57,11 @@ class SolicitudController extends Controller
     {
       $actual = Carbon::now();
 
+      //Semestre actual
       $lista     = semestre::where('fecha_ini', '<=',$actual->format('Y-m-d'))
                             ->where("fecha_term",">=",$actual->format('Y-m-d'))->first();
 
-      //Necesito sabaer la cantidad de dias de permisos ya solicitado en este semestre
-      $cantidad  =  RecordSolicitud::where('rut', '=', auth()->user()->rut)
-                                      ->where('fecha_desde', '<=',$actual->format('Y-m-d'))
-                                      ->where("fecha_hasta",">=",$actual->format('Y-m-d'))->first();
+
 
           //  dd($cantidad);
 
@@ -79,6 +89,10 @@ class SolicitudController extends Controller
       $difdayin = Carbon::parse($request->fecha_desde);
       $difdayout = Carbon::parse($request->fecha_hasta);
 
+      $lista     = semestre::where('fecha_ini', '<=',$difdayin)
+                            ->where('fecha_term','>=',$difdayout)->first();
+
+
         if($request->fecha_hasta === null){
           $options  = [
               'rut'             =>  $request->rut,
@@ -86,7 +100,8 @@ class SolicitudController extends Controller
               'fecha_desde'     =>  $request->fecha_desde,
               'fecha_hasta'     =>  $request->fecha_hasta,
               'reemplazo'       =>  $request->reemplazo,
-              'cantidad_dias'   =>  '1'
+              'cantidad_dias'   =>  '1',
+              'semestre'        =>  $lista->name
               ];
         }else{
           $options  = [
@@ -95,7 +110,8 @@ class SolicitudController extends Controller
               'fecha_desde'     =>  $request->fecha_desde,
               'fecha_hasta'     =>  $request->fecha_hasta,
               'reemplazo'       =>  $request->reemplazo,
-              'cantidad_dias'   =>  $difdayin->diffInWeekdays($difdayout)+1
+              'cantidad_dias'   =>  $difdayin->diffInWeekdays($difdayout)+1,
+              'semestre'        =>  $lista->name
               ];
         }
 

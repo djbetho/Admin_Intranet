@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'Solicitud', 'titlePage' => __('Solicitudes')])
+@extends('layouts.app', ['activePage' => 'Solicitar permiso', 'titlePage' => __('Solicitar permiso')])
 
 @section('content')
 <div class="content">
@@ -7,10 +7,14 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-primary">
-            <h4 class="card-title ">Solicitudes</h4>
+            <h4 class="card-title ">Solicitar permiso </h4>
             <p class="card-category"> Listado de las solicitudes Aceptadas</p>
 
+            <a  class="btn btn-info">Días disponible X Semestre # {{ $nombre_semestre_actual->cantidad  }} </a>
+              <a  class="btn btn-info">Días Aceptados # {{ $cantidad_per }}</a>
+            <a  class="btn btn-info">Días en proceso # {{ $cantidad_p }}</a>
           </div>
+
           <div class="card-body">
               @can('solicitud.create')
                 <a href="solicitud/create" class="btn btn-primary">Nueva Solicitud</a>
