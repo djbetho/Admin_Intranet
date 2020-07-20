@@ -20,7 +20,7 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
@@ -113,6 +113,9 @@ Route::middleware(['auth'])->group(function(){
 	Route::put('solicitud/{id}','SolicitudController@update')->name('solicitud.update')
 			->middleware('has.permission:solicitud.edit');
 
+	Route::put('solicitud/{id}','SolicitudController@updateStates')->name('solicitud.updateStates')
+					->middleware('has.permission:solicitud.updateStates');
+
 	Route::get('solicitud/{id}','SolicitudController@show')->name('solicitud.show')
 			->middleware('has.permission:solicitud.show');
 
@@ -193,6 +196,26 @@ Route::middleware(['auth'])->group(function(){
 
 				Route::get('semestre/{id}/edit','SemestreController@edit')->name('semestre.edit')
 						->middleware('has.permission:semestre.edit');
+
+
+
+//chekear permisos
+
+
+					Route::get('workpermit','WorkpermitController@index')->name('workpermit.index')
+							->middleware('has.permission:permission.index');
+
+					Route::put('workpermit/{id}','WorkpermitController@update')->name('workpermit.update')
+							->middleware('has.permission:workpermit.edit');
+
+					Route::get('workpermit/{id}','WorkpermitController@show')->name('workpermit.show')
+							->middleware('has.permission:workpermit.show');
+
+					Route::delete('workpermit/{id}','WorkpermitController@destroy')->name('workpermit.destroy')
+							->middleware('has.permission:workpermit.destroy');
+
+					Route::get('workpermit/{id}/edit','WorkpermitController@edit')->name('workpermit.edit')
+							->middleware('has.permission:permission.edit');
 });
 
 

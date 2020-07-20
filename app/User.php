@@ -6,7 +6,7 @@ use Caffeinated\Shinobi\Concerns\HasRolesAndPermissions;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
+use App\RecordSolicitud;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -52,6 +52,11 @@ class User extends Authenticatable
           if($name)
               return $query->where('name', 'LIKE', "%$name%");
       }
+      public function RecordSolicitud(){
 
-    
+        return $this->hasMany(RecordSolicitud::class,'rut');
+
+      }
+
+
 }

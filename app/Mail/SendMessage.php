@@ -7,11 +7,13 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use App\RecordSolicitud;
+use App\User;
 
 class SendMessage extends Mailable
 {
     use Queueable, SerializesModels;
     public $RecordSolicitud;
+
     /**
      * Create a new message instance.
      *
@@ -21,7 +23,7 @@ class SendMessage extends Mailable
     {
         //
          $this->RecordSolicitud = $RecordSolicitud;
-
+         //
 
     }
 

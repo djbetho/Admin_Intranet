@@ -17,6 +17,7 @@ class CreateRecordSolicitudsTable extends Migration
          Schema::create('record_solicituds', function (Blueprint $table) {
             $table->id()->unique();
             $table->string('rut');
+
             $table->string('detalle',255)->nullable();
             $table->string('fecha_desde')->nullable();
             $table->string('fecha_hasta')->nullable();
@@ -25,7 +26,9 @@ class CreateRecordSolicitudsTable extends Migration
             $table->integer('estado')->nullable();
             $table->integer('cantidad_dias')->nullable();
             $table->string('semestre')->nullable();
+            $table->string('observacion')->nullable();
             $table->timestamps();
+            $table->foreign('rut')->references('rut')->on('users');
         });
     }
 

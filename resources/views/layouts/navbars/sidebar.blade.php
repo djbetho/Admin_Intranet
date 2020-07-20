@@ -20,7 +20,14 @@
         </a>
       </li>
      @endcan
-
+     @can('workpermit.index')
+      <li class="nav-item{{ $activePage == 'Checkear Permisos' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('workpermit.index')}}">
+          <i class="material-icons">content_paste</i>
+            <p>{{ __('Checkear Permisos ') }}</p>
+        </a>
+      </li>
+     @endcan
      @can('solicitud.index')
       <li class="nav-item{{ $activePage == 'Solicitar permiso' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('solicitud.index')}}">

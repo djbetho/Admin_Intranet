@@ -8,6 +8,8 @@ use App\User;
 use App\semestre;
 use Mail;
 use App\Mail\SendMessage;
+use App\Mail\AceptadoPermiso;
+use App\Mail\RechazadoPermiso;
 use Caffeinated\Shinobi\Models\Role;
 use Caffeinated\Shinobi\Models\Permission;
 use Carbon\Carbon;
@@ -22,10 +24,20 @@ class SolicitudController extends Controller
     public function index(Request $request)
     {
         //
-        $count_acep = RecordSolicitud::Count('estado')->where('estado','1')->first();
-        $count_pend = RecordSolicitud::Count('estado')->where('estado',NULL)->first();
-        $suma = $count_acep->count();
-        $sumaP = $count_pend->count();
+        $count_acep = RecordSolicitud::Count('estado')->where('estado','1')->where('rut', '=', auth()->user()->rut)->first();
+        $count_pend = RecordSolicitud::Count('estado')->where('estado',NULL)->where('rut', '=', auth()->user()->rut)->first();
+
+        if(!$count_acep){
+                $suma = 0;
+            }else{
+                 $suma = $count_acep->count();
+            }
+
+          if(!$count_pend){
+              $sumaP = 0;
+          }else{
+               $sumaP = $count_pend->count();
+          }
         $actual = Carbon::now();
 
         //Semestre actual
@@ -40,10 +52,8 @@ class SolicitudController extends Controller
                                     ->paginate(6);
 
 
-
-
-        return view('pages.index',['solicitud'            =>$solicitud,
-                                  'nombre_semestre_actual'=>$lista,
+        return view('pages.index',['solicitud'            => $solicitud,
+                                  'nombre_semestre_actual'=> $lista,
                                   'cantidad_per'          => $suma,
                                   'cantidad_p'            => $sumaP]);
     }
@@ -115,12 +125,16 @@ class SolicitudController extends Controller
               ];
         }
 
+          //buscar Solicitud y comparar fechas y cantidad de permisos aceptados, Enviar alerta antes de crear
+
             if(RecordSolicitud::create($options )){
               //Busco el usuario con rol de director para enviar el correo con
               //las solicitud de permiso
-              $dire_email = User::whereHas("roles", function($q){ $q->where("name", "Director"); })->get('email');
+                $dire_email = User::whereHas("roles", function($q){ $q->where("name", "Director"); })->get('email');
 
-              Mail::to($dire_email)
+
+
+                Mail::to($dire_email)
                   ->cc(auth()->user()->email)
                   ->send(new SendMessage($request));
 
@@ -184,13 +198,51 @@ class SolicitudController extends Controller
         $solicitud->reemplazo = $request->reemplazo;
         $solicitud->fecha_desde = $request->fecha_desde;
         $solicitud->fecha_hasta = $request->fecha_hasta;
+        $solicitud->estado = $request->estado;
+        $solicitud->observacion = $request->observacion;
 
-        if($solicitud->save()){
-          return redirect('/solicitud')
-                ->with('info','Solicitud editada con exito');
-        }else{
-          return view("pages.edit_solicitud",["solicitud" => $solicitud]);
+
+        switch ($request->estado) {
+          case '1':
+            // code...
+            if($solicitud->save()){
+
+
+              Mail::to($solicitud->user->email)->cc('noreply@sanfranciscoasis.cl')->send(new AceptadoPermiso($request));
+
+                return redirect('/workpermit')
+                      ->with('info','Solicitud aceptada con exito');
+
+
+              }else{
+                return view("pages.edit_solicitud",["solicitud" => $solicitud]);
+              }
+            break;
+          case '2':
+          // code...
+          if($solicitud->save()){
+            Mail::to($solicitud->user->email)->cc('noreply@sanfranciscoasis.cl')->send(new RechazadoPermiso($request));
+
+              return redirect('/workpermit')
+                    ->with('info','Solicitud Rechazada con exito');
+            }else{
+              return view("pages.edit_solicitud",["solicitud" => $solicitud]);
+            }
+              break;
+
+          default:
+          // code...
+          if($solicitud->save()){
+              return redirect('/solicitud')
+                    ->with('info','Solicitud editada con exito');
+            }else{
+              return view("pages.edit_solicitud",["solicitud" => $solicitud]);
+            }
+            break;
         }
+
+
+
     }
 
 
@@ -209,4 +261,6 @@ class SolicitudController extends Controller
         ->with('info','Solicitud eliminada con exito');
 
     }
+
+
 }
