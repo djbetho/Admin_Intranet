@@ -25,7 +25,7 @@ class SolicitudController extends Controller
     {
         //
         $count_acep = RecordSolicitud::Count('estado')->where('estado','1')->where('rut', '=', auth()->user()->rut)->first();
-        $count_pend = RecordSolicitud::Count('estado')->where('estado',NULL)->where('rut', '=', auth()->user()->rut)->first();
+        $count_pend = RecordSolicitud::Count('estado')->whereNull('estado')->where('rut', '=', auth()->user()->rut)->first();
 
         if(!$count_acep){
                 $suma = 0;
