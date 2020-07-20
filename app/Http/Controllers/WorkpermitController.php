@@ -25,7 +25,7 @@ class WorkpermitController extends Controller
 
       $detalle  = $request->get('detalle');
 
-      $solicitud =  RecordSolicitud::whereNull('estado')->get()->paginate();
+      $solicitud =  RecordSolicitud::whereNull('estado')->get()->paginate(4);
 
 
 
