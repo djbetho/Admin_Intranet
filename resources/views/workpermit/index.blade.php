@@ -181,7 +181,7 @@
                    @endforeach
                 </tbody>
               </table>
-                {{ $solicitud->links() }}
+              
             </div>
           </div>
         </div>
