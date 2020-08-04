@@ -10,9 +10,7 @@
             <h4 class="card-title ">Solicitar permiso </h4>
             <p class="card-category"> Listado de las solicitudes Aceptadas</p>
 
-            <a  class="btn btn-info">Días disponible X Semestre # {{ $nombre_semestre_actual->cantidad  }} </a>
-              <a  class="btn btn-info">Días Aceptados # {{ $cantidad_per }}</a>
-            <a  class="btn btn-info">Días en proceso # {{ $cantidad_p }}</a>
+           
           </div>
 
           <div class="card-body">

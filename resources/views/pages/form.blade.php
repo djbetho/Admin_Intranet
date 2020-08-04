@@ -1,6 +1,6 @@
 
 
-{!! Form::open(['route' => [$solicitud->url(),$solicitud->id],'method' => $solicitud ->method(),'class'=>'form']) !!}
+{!! Form::open(['route' => [$solicitud->url(),$solicitud->id],'method' => $solicitud ->method(),'class'=>'form','id' => 'formulario_busqueda']) !!}
 
 
  <div class="card-body">
@@ -36,7 +36,7 @@
   </div>
 
 
-<button type="submit"  class="btn btn-primary">Guardar</button>
+<button type="submit"  id="a" class="btn btn-primary">Guardar</button>
 
 
 {!! Form::close() !!}

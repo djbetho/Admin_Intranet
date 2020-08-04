@@ -80,6 +80,7 @@
           </div>
         </div> -->
         <!--   Core JS Files   -->
+
         <script src="{{ asset('material') }}/js/core/jquery.min.js"></script>
         <script src="{{ asset('material') }}/js/core/popper.min.js"></script>
         <script src="{{ asset('material') }}/js/core/bootstrap-material-design.min.js"></script>
@@ -130,12 +131,12 @@
 
         <script type="text/javascript">
 
-    
+
 
 
           var countChecked = function() {
           var n = $( "input:checked" ).length;
-          console.log( n + (n === 0 ? $("#fecha_hasta").hide() : $("#fecha_hasta").show() ));
+          console.log( n + (n === 0 ? $("#fecha_hasta").hide().val('') : $("#fecha_hasta").show() ));
         };
           countChecked();
             $("#cantidad_dias").prop('readonly', true);
@@ -174,6 +175,7 @@
 
 
         </script>
+
         @stack('js')
     </body>
 </html>

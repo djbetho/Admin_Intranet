@@ -13,6 +13,7 @@ use App\Mail\RechazadoPermiso;
 use Caffeinated\Shinobi\Models\Role;
 use Caffeinated\Shinobi\Models\Permission;
 use Carbon\Carbon;
+use SweetAlert;
 
 class SolicitudController extends Controller
 {
@@ -71,16 +72,14 @@ class SolicitudController extends Controller
       $lista     = semestre::where('fecha_ini', '<=',$actual->format('Y-m-d'))
                             ->where("fecha_term",">=",$actual->format('Y-m-d'))->first();
 
-
-
-          //  dd($cantidad);
-
-
         // Mostramos un formulario para crear nuevos ejemplos
         $solicitud = new RecordSolicitud;
 
+        $datos = RecordSolicitud::where('rut', '=', auth()->user()->rut)->get();
+
          return view('pages.new_solicitud',['solicitud'=>$solicitud,
-                                            'nombre_semestre_actual'=>$lista]);
+                                            'nombre_semestre_actual'=>$lista,
+                                          'datos'=>$datos])->with('SolicitudController', $this);
     }
 
 
@@ -93,14 +92,23 @@ class SolicitudController extends Controller
     public function store(Request $request)
     {
 
-
-
-
       $difdayin = Carbon::parse($request->fecha_desde);
       $difdayout = Carbon::parse($request->fecha_hasta);
 
-      $lista     = semestre::where('fecha_ini', '<=',$difdayin)
-                            ->where('fecha_term','>=',$difdayout)->first();
+      if($request->fecha_hasta == NULL ){
+          $lista     = semestre::where('fecha_ini', '<=',$difdayin)->where('fecha_term','>=',$difdayin)->first();
+
+
+      }else{
+          $lista     = semestre::where('fecha_ini', '<=',$difdayin)
+                                ->where('fecha_term','>=',$difdayout)->first();
+        }
+
+
+       if(!$lista){
+
+        return back()->with('info','Semestre no esta creado, revise la fechas ingresadas')->withInput();
+       }
 
 
         if($request->fecha_hasta === null){
@@ -125,7 +133,6 @@ class SolicitudController extends Controller
               ];
         }
 
-          //buscar Solicitud y comparar fechas y cantidad de permisos aceptados, Enviar alerta antes de crear
 
             if(RecordSolicitud::create($options )){
               //Busco el usuario con rol de director para enviar el correo con
@@ -146,6 +153,7 @@ class SolicitudController extends Controller
                 return view('pages.new_solicitud');
 
             }
+
     }
 
     /**
@@ -259,6 +267,47 @@ class SolicitudController extends Controller
         RecordSolicitud::destroy($id);
         return redirect('/solicitud')
         ->with('info','Solicitud eliminada con exito');
+
+    }
+    public function ValidarPermiso(Request $request)
+    {
+
+    if(!isset($request->fecha_hasta)){
+
+      $difdayin = Carbon::parse($request->fecha_desde);
+      $lista     = semestre::where('fecha_ini', '<=',$difdayin)->where('fecha_term','>=',$difdayin)->first();
+      $cantidad_dias = 1;
+    }else{
+        $difdayin = Carbon::parse($request->fecha_desde);
+        $difdayout = Carbon::parse($request->fecha_hasta);
+        $lista     = semestre::where('fecha_ini', '<=',$difdayin)
+                              ->where('fecha_term','>=',$difdayout)->first();
+
+      $cantidad_dias = $difdayin->diffInWeekdays($difdayout)+1;
+      }
+
+
+   $count_acep = RecordSolicitud::where('estado','1')->where('rut', '=', auth()->user()->rut)->where('semestre', '=',$lista->name)->get()->sum('cantidad_dias');
+
+          if($count_acep >= $lista->cantidad){
+            $count_acep = $count_acep + $cantidad_dias;
+            $goce = "Alerta. Ya tienes $count_acep dias de permisos ya aceptados en el $lista->name, Esta nueva  solicitud de ".$cantidad_dias." dias, es sin goce de sueldo" ;
+            $alerta = 3;
+
+          }elseif($count_acep <= $lista->cantidad){
+                $suma_diferencia = $count_acep+$cantidad_dias;
+
+                if($suma_diferencia >= $lista->cantidad){
+                  $diferencia = $suma_diferencia-$lista->cantidad;
+                  $goce = "Alerta la cantidad de dias que solicitaste (".$cantidad_dias." días) es mayor a la cantidad dias diponibles con goce de sueldo en $lista->name. Actualmente estás solicitando, ".$diferencia." día(s) sin goce de sueldo";
+                  $alerta = 2;
+                }else{
+
+                  $goce = "Tienes $count_acep día(s) de permiso(s) ya aceptados en el $lista->name, Esta solicitud es de ".$cantidad_dias." día(s) y es con goce de sueldo";
+                  $alerta = 1;
+                  }
+          }
+            return "{\"result\":\"ko\",\"error\":\"$goce\"}";
 
     }
 

@@ -125,6 +125,12 @@ Route::middleware(['auth'])->group(function(){
 	Route::get('solicitud/{id}/edit','SolicitudController@edit')->name('solicitud.edit')
 			->middleware('has.permission:solicitud.edit');
 
+	Route::get('solicitud/ValidarPermiso','SolicitudController@ValidarPermiso')->name('solicitud.ValidarPermiso')
+		 		 ->middleware('has.permission:solicitud.ValidarPermiso');
+  Route::post('solicitud/ValidarPermiso','SolicitudController@ValidarPermiso')->name('solicitud.ValidarPermiso')
+		 		 ->middleware('has.permission:solicitud.ValidarPermiso');
+
+
 //Licencias
 
 	Route::post('licencia/store','LicenciaController@store')->name('licencia.store')

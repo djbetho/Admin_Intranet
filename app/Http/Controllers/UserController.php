@@ -56,7 +56,6 @@ class UserController extends Controller
 
             if($user = User::create($options )){
 
-
               $user->roles()->sync($request->get('roles'));
 
                 return redirect('/user')
@@ -106,6 +105,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
+
         $user->update($request->all());
 
         $user->roles()->sync($request->get('roles'));

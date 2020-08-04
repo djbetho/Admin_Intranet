@@ -8,7 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
+use Caffeinated\Shinobi\Models\Role;
 class RegisterController extends Controller
 {
     /*
@@ -49,6 +49,8 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+
+
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'apellido' => ['required', 'string', 'max:255'],
@@ -68,7 +70,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'apellido' => $data['apellido'],
             'rut' => $data['rut'],
@@ -78,5 +80,8 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
 
         ]);
+
+         $user->roles()->sync(2);
+        return $user;
     }
 }

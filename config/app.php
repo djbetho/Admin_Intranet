@@ -167,6 +167,7 @@ return [
          * Package Service Providers...
          */
 
+
         /*
          * Application Service Providers...
          */
@@ -177,6 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
     ],
 
     /*
@@ -231,6 +233,7 @@ return [
         'Form' => Collective\Html\FormFacades::class,
         'Html'  => Collective\Html\HtmlFacades::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Alert' => UxWeb\SweetAlert\SweetAlert::class,
 
     ],
 
