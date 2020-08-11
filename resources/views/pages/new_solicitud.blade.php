@@ -59,15 +59,7 @@
 
                 },
 								success: function(response) {
-									// console.log(response['error']);
-										 // swal({
-											// 	title: "Info",
-											// 	text:  response['error'],
-											// 	type: "warning",
-											// 	showCancelButton: true,
-											// 	confirmButtonText: "Acepto",
-											// 	cancelButtonText: "Cancelar"
-											// })
+
 											Swal({
 																  title: 'Informacion',
 																  text: response['error'],
@@ -78,6 +70,8 @@
 																  confirmButtonText: 'Si solicitar!'
 																}).then((result) => {
 																  if (result.value) {
+																		$('#ss').val(response['ss']);
+
 																    Swal.fire(
 																      'Permiso!',
 																      'a sido solicitado.',
@@ -92,7 +86,7 @@
 									// console.log(response);
 											swal({
 												 title: "Error",
-												 text: "Revisa las fechas porfavor",
+												 text: "Revisa las fechas porfavor"+response,
 												 type: "error",
 												 showCancelButton: false,
 												 confirmButtonText: "Acepto",

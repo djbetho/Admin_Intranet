@@ -10,7 +10,7 @@ class RecordSolicitud extends Model
 
      protected $fillable = [
 
-     		 'rut','detalle','reemplazo','fecha_desde','fecha_hasta','cantidad_dias','semestre','observacion'
+     		 'rut','detalle','reemplazo','fecha_desde','fecha_hasta','cantidad_dias','semestre','observacion','ss'
      ];
 
      public function url(){

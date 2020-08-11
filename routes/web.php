@@ -127,6 +127,7 @@ Route::middleware(['auth'])->group(function(){
 
 	Route::get('solicitud/ValidarPermiso','SolicitudController@ValidarPermiso')->name('solicitud.ValidarPermiso')
 		 		 ->middleware('has.permission:solicitud.ValidarPermiso');
+
   Route::post('solicitud/ValidarPermiso','SolicitudController@ValidarPermiso')->name('solicitud.ValidarPermiso')
 		 		 ->middleware('has.permission:solicitud.ValidarPermiso');
 
@@ -221,7 +222,23 @@ Route::middleware(['auth'])->group(function(){
 							->middleware('has.permission:workpermit.destroy');
 
 					Route::get('workpermit/{id}/edit','WorkpermitController@edit')->name('workpermit.edit')
-							->middleware('has.permission:permission.edit');
+							->middleware('has.permission:workpermit.edit');
+
+			//reportes
+					Route::get('report','ReportController@index')->name('report.index')
+							->middleware('has.permission:report.index');
+
+					// Route::put('workpermit/{id}','WorkpermitController@update')->name('workpermit.update')
+					// 		->middleware('has.permission:workpermit.edit');
+					//
+					Route::get('report/filtro','ReportController@busqueda')->name('report.show')
+							->middleware('has.permission:report.show');
+					//
+					// Route::delete('workpermit/{id}','WorkpermitController@destroy')->name('workpermit.destroy')
+					// 		->middleware('has.permission:workpermit.destroy');
+					//
+					// Route::get('workpermit/{id}/edit','WorkpermitController@edit')->name('workpermit.edit')
+					// 		->middleware('has.permission:permission.edit');
 });
 
 

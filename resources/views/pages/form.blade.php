@@ -4,7 +4,7 @@
 
 
  <div class="card-body">
-	<div class="form-group">
+ 	<div class="form-group">
 		{!! Form::label('title', 'Rut') !!}
 		{!! Form::text('rut',   auth()->user()->rut  , ['class' => 'form-control']) !!}
 	</div>
@@ -34,7 +34,7 @@
 
 
   </div>
-
+<input type="hidden" name="ss"  id="ss" class="form-control" />
 
 <button type="submit"  id="a" class="btn btn-primary">Guardar</button>
 

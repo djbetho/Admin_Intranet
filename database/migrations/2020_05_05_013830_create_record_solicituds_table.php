@@ -19,9 +19,10 @@ class CreateRecordSolicitudsTable extends Migration
             $table->string('rut');
 
             $table->string('detalle',255)->nullable();
-            $table->string('fecha_desde')->nullable();
-            $table->string('fecha_hasta')->nullable();
+            $table->date('fecha_desde')->nullable();
+            $table->date('fecha_hasta')->nullable();
             $table->integer('cs')->nullable();
+            $table->integer('ss')->nullable();
             $table->string('reemplazo',255)->nullable();
             $table->integer('estado')->nullable();
             $table->integer('cantidad_dias')->nullable();

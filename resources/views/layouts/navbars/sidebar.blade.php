@@ -65,7 +65,7 @@
         <div class="collapse" id="pagesExamples" style="">
           <ul class="nav">
             <li class="nav-item{{ $activePage == 'Permisos' ? ' active' : '' }}">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="{{ route('report.index') }}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> Permisos </span>
               </a>

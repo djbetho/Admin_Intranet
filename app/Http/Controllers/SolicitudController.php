@@ -115,25 +115,30 @@ class SolicitudController extends Controller
           $options  = [
               'rut'             =>  $request->rut,
               'detalle'         =>  $request->detalle,
-              'fecha_desde'     =>  $request->fecha_desde,
-              'fecha_hasta'     =>  $request->fecha_hasta,
+              'fecha_desde'     =>  $difdayin,
+              'fecha_hasta'     =>  $difdayout,
               'reemplazo'       =>  $request->reemplazo,
               'cantidad_dias'   =>  '1',
-              'semestre'        =>  $lista->name
+              'semestre'        =>  $lista->name,
+              'ss'              =>  $request->ss
               ];
+              $request->cantidad_dias = '1';
         }else{
           $options  = [
               'rut'             =>  $request->rut,
               'detalle'         =>  $request->detalle,
-              'fecha_desde'     =>  $request->fecha_desde,
-              'fecha_hasta'     =>  $request->fecha_hasta,
+              'fecha_desde'     =>  $difdayin,
+              'fecha_hasta'     =>  $difdayout,
               'reemplazo'       =>  $request->reemplazo,
               'cantidad_dias'   =>  $difdayin->diffInWeekdays($difdayout)+1,
-              'semestre'        =>  $lista->name
+              'semestre'        =>  $lista->name,
+              'ss'              =>  $request->ss
               ];
+            $request->cantidad_dias = $difdayin->diffInWeekdays($difdayout)+1;
         }
 
 
+ 
             if(RecordSolicitud::create($options )){
               //Busco el usuario con rol de director para enviar el correo con
               //las solicitud de permiso
@@ -290,24 +295,21 @@ class SolicitudController extends Controller
    $count_acep = RecordSolicitud::where('estado','1')->where('rut', '=', auth()->user()->rut)->where('semestre', '=',$lista->name)->get()->sum('cantidad_dias');
 
           if($count_acep >= $lista->cantidad){
-            $count_acep = $count_acep + $cantidad_dias;
+            $count_acep = $count_acep;
             $goce = "Alerta. Ya tienes $count_acep dias de permisos ya aceptados en el $lista->name, Esta nueva  solicitud de ".$cantidad_dias." dias, es sin goce de sueldo" ;
             $alerta = 3;
-
+            $diferencia=$cantidad_dias;
           }elseif($count_acep <= $lista->cantidad){
                 $suma_diferencia = $count_acep+$cantidad_dias;
 
                 if($suma_diferencia >= $lista->cantidad){
+
                   $diferencia = $suma_diferencia-$lista->cantidad;
                   $goce = "Alerta la cantidad de dias que solicitaste (".$cantidad_dias." días) es mayor a la cantidad dias diponibles con goce de sueldo en $lista->name. Actualmente estás solicitando, ".$diferencia." día(s) sin goce de sueldo";
                   $alerta = 2;
-                }else{
-
-                  $goce = "Tienes $count_acep día(s) de permiso(s) ya aceptados en el $lista->name, Esta solicitud es de ".$cantidad_dias." día(s) y es con goce de sueldo";
-                  $alerta = 1;
-                  }
+                }
           }
-            return "{\"result\":\"ko\",\"error\":\"$goce\"}";
+            return "{\"result\":\"ko\",\"error\":\"$goce\",\"ss\":\"$diferencia\"}";
 
     }
 

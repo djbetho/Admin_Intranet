@@ -160,6 +160,9 @@ a[x-apple-data-detectors] {
                         <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:16px;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:24px;color:#666666;text-align:center">
                           A solicitado permiso para {{ $RecordSolicitud->detalle }}, quien lo reemplazara {{$RecordSolicitud->reemplazo }}.
                         </p>
+                        <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:16px;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:24px;color:#666666;text-align:center">
+                          a solicitado  {{ $RecordSolicitud->cantidad_dias }} dia(s). de los cuales son {{ $RecordSolicitud->ss }} día(s) sin goce de sueldo.
+                        </p>
                       </td>
                      </tr>
                      <tr style="border-collapse:collapse">
