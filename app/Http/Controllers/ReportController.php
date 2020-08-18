@@ -35,16 +35,23 @@ class ReportController extends Controller
         // $lista_pdf = RecordSolicitud::where('estado','=','1')
         //                               ->whereMonth("fecha_desde",$request->mes)
         //                               ->get();
-        $lista_pdf = RecordSolicitud::all()->where('estado','=','1')->groupBy('rut');
+        $lista_pdf2 = RecordSolicitud::whereMonth("fecha_desde", '=',$request->mes)
+                                      ->whereYear("fecha_desde", '=',$request->ano)
+                                      ->where('estado','=','1')
+                                      ->get();
+        $lista_pdf = $lista_pdf2->groupBy('rut');
+
 
       }else{
         $lista_pdf = RecordSolicitud::where('rut',$request->user_selected)
                                       ->where('estado','=','1')
-                                      ->whereMonth("fecha_desde",$request->mes)
+                                      ->whereMonth("fecha_desde", '=',$request->mes)
+                                      ->whereYear("fecha_desde", '=',$request->ano)
                                       ->get();
+        $lista_pdf = $lista_pdf->groupBy('rut');
       }
 
-  // dd($lista_pdf);
+
     $pdf = \PDF::loadView('report.vista1', compact('lista_pdf') );
     return $pdf->stream('reporte.pdf');
     }
