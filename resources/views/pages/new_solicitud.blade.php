@@ -42,7 +42,7 @@
 
 						 e.preventDefault();
 
-						 if($('#fecha_hasta').val().length === 0){
+						 if($('#fecha_hasta').val().length == 0){
 							 var parametros = {"fecha_desde" : $('#fecha_desde').val() };
 						 }else{
 							 var parametros = {"fecha_desde" : $('#fecha_desde').val(),"fecha_hasta" : $('#fecha_hasta').val() };
@@ -83,7 +83,7 @@
 																})
 								},
                 error: function(response) {
-									 console.log(response);
+
 											swal({
 												 title: "Error",
 												 text: "Revisa las fechas porfavor"+response,
