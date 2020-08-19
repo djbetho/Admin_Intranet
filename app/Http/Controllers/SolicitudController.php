@@ -138,7 +138,7 @@ class SolicitudController extends Controller
         }
 
 
- 
+
             if(RecordSolicitud::create($options )){
               //Busco el usuario con rol de director para enviar el correo con
               //las solicitud de permiso
@@ -307,8 +307,13 @@ class SolicitudController extends Controller
                   $diferencia = $suma_diferencia-$lista->cantidad;
                   $goce = "Alerta la cantidad de dias que solicitaste (".$cantidad_dias." días) es mayor a la cantidad dias diponibles con goce de sueldo en $lista->name. Actualmente estás solicitando, ".$diferencia." día(s) sin goce de sueldo";
                   $alerta = 2;
+                }else{
+                  $goce="Alerta la cantidad de dias que solicitaste (".$cantidad_dias." días) es con goce de sueldo";
+                  $diferencia ="";
                 }
+
           }
+
             return "{\"result\":\"ko\",\"error\":\"$goce\",\"ss\":\"$diferencia\"}";
 
     }
