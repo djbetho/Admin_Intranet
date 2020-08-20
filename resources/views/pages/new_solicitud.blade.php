@@ -86,7 +86,7 @@
 
 											swal({
 												 title: "Error",
-												 text: "Revisa las fechas porfavor"+response,
+												 text: "Las fechas deben ser del mismo Semestre,",
 												 type: "error",
 												 showCancelButton: false,
 												 confirmButtonText: "Acepto",

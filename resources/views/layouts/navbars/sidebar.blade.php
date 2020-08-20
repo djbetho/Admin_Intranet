@@ -30,7 +30,7 @@
      @endcan
      @can('solicitud.index')
       <li class="nav-item{{ $activePage == 'Solicitar permiso' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('solicitud.index')}}">
+        <a class="nav-link" href="{{ route('solicitud.index')}}" >
           <i class="material-icons">content_paste</i>
             <p>{{ __('Solicitar permiso ') }}</p>
         </a>
@@ -130,10 +130,17 @@
               </a>
             </li>
             @endcan
-
           </ul>
         </div>
       </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Salir') }} 
+            <i class="material-icons">content_paste</i>
+
+          </a>
+          </li>
+
+
 
 
 
