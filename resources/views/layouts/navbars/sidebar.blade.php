@@ -54,7 +54,7 @@
         </a>
       </li>
       @endcan
-
+  @can('workpermit.index')
       <li class="nav-item ">
         <a class="nav-link collapsed" data-toggle="collapse" href="#pagesExamples" aria-expanded="false">
           <i class="material-icons">image</i>
@@ -86,6 +86,8 @@
           </ul>
         </div>
       </li>
+  @endcan
+    @can(''user.create')
       <li class="nav-item ">
         <a class="nav-link collapsed" data-toggle="collapse" href="#pagesAdmin" aria-expanded="false">
           <i class="material-icons">image</i>
@@ -133,8 +135,9 @@
           </ul>
         </div>
       </li>
+  @endcan
         <li class="nav-item ">
-          <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Salir') }} 
+          <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Salir') }}
             <i class="material-icons">content_paste</i>
 
           </a>
