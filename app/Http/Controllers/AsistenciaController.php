@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\User;
+use App\ tftattlog;
 use Illuminate\Http\Request;
 
 class AsistenciaController extends Controller
@@ -13,7 +14,15 @@ class AsistenciaController extends Controller
      */
     public function index()
     {
-        //
+      $rut_sinDV = substr(auth()->user()->rut,0,-1);
+      $rut_sn= str_replace('-','', str_replace(' ','', $rut_sinDV ));
+      // $rut_sn = '16974272';
+      $someModel = new tftattlog;
+      $someModel->setConnection('mysql2');
+      $something = $someModel->where('EnrollNumber', 'like', '%' .$rut_sn. '%')
+                              ->get();
+        // dd($something);
+        return view('asistencia.index',compact('something'));
     }
 
     /**

@@ -291,9 +291,9 @@ class SolicitudController extends Controller
       $cantidad_dias = $difdayin->diffInWeekdays($difdayout)+1;
       }
 
-
-   $count_acep = RecordSolicitud::where('estado','1')->where('rut', '=', auth()->user()->rut)->where('semestre', '=',$lista->name)->get()->sum('cantidad_dias');
  
+   $count_acep = RecordSolicitud::where('estado','1')->where('rut', '=', auth()->user()->rut)->where('semestre', '=',$lista->name)->get()->sum('cantidad_dias');
+
           if($count_acep >= $lista->cantidad){
             $count_acep = $count_acep;
             $goce = "Alerta. Ya tienes $count_acep dias de permisos ya aceptados en el $lista->name, Esta nueva  solicitud de ".$cantidad_dias." dias, es sin goce de sueldo" ;
