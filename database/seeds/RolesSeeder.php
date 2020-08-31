@@ -25,12 +25,11 @@ class RolesSeeder extends Seeder
       Role::create([
         'name'=>'Administrativo',
         'slug'=>'administrativo.setup',
-
       ]);
       Role::create([
         'name'=>'Director',
         'slug'=>'director.setup',
-         
+
       ]);
     }
 }

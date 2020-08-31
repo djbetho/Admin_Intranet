@@ -22,7 +22,7 @@ class AsistenciaController extends Controller
       $something = $someModel->where('EnrollNumber', 'like', '%' .$rut_sn. '%')
                               ->get();
         // dd($something);
-        return view('asistencia.index',compact('something'));
+      return view('asistencia.index',compact('something'));
     }
 
     /**

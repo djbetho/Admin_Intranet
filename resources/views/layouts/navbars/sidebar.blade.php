@@ -54,7 +54,6 @@
         </a>
       </li>
       @endcan
-
       <li class="nav-item ">
         <a class="nav-link collapsed" data-toggle="collapse" href="#pagesExamples" aria-expanded="false">
           <i class="material-icons">image</i>
