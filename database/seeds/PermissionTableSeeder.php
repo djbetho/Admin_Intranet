@@ -93,6 +93,11 @@ class PermissionTableSeeder extends Seeder
         	'slug'=>'solicitud.destroy',
         	'description'=>'Elimiar cualquier solicitud en el sistema',
         ]);
+        Permission::create([
+       'name'=>'Validar Solicitud',
+       'slug'=>'solicitud.ValidarPermiso',
+       'description'=>'Validar solicitud en el sistema',
+     ]);
 
 
         //Permiso
