@@ -20,7 +20,7 @@ class AsistenciaController extends Controller
       $someModel = new tftattlog;
       $someModel->setConnection('mysql2');
       $something = $someModel->where('EnrollNumber', 'like', '%' .$rut_sn. '%')
-                              ->get();
+                              ->paginate(10);
         // dd($something);
       return view('asistencia.index',compact('something'));
     }

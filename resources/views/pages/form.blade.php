@@ -6,7 +6,7 @@
  <div class="card-body">
  	<div class="form-group">
 		{!! Form::label('title', 'Rut') !!}
-		{!! Form::text('rut',   auth()->user()->rut  , ['class' => 'form-control']) !!}
+		{!! Form::text('rut',   auth()->user()->rut  , ['class' => 'form-control' ,'readonly']) !!}
 	</div>
 	<div class="form-group">
 		{!! Form::label('title', 'Detalle de la solicitud', []) !!}

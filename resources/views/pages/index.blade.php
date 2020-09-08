@@ -10,7 +10,7 @@
             <h4 class="card-title ">Solicitar permiso </h4>
             <p class="card-category"> Listado de las solicitudes Aceptadas</p>
 
-           
+
           </div>
 
           <div class="card-body">
@@ -71,7 +71,11 @@
                 </thead>
                 <tbody>
                    @foreach ($solicitud as $solicitudes)
-                   <tr>
+                   @if($solicitudes->estado === 2)
+                   <tr bgcolor="red" style="font-weight: bold">
+                   @else
+                    <tr>
+                  @endif
                     <td>
                       {{ $solicitudes->detalle }}
                     </td>
@@ -108,7 +112,11 @@
                        @can('solicitud.show') <a href="solicitud/{{ $solicitudes->id }}" class="btn btn-sm btn-default" >Ver</a>@endcan
                     </td>
                     <td width="5px">
+                       @if($solicitudes->estado === 2 || $solicitudes->estado === 1)
+                       @else
                        @can('solicitud.edit')<a href="solicitud/{{ $solicitudes->id }}/edit" class="btn btn-sm btn-default">editar</a>@endcan
+
+                      @endif
                     </td >
                     <td width="5px">
                        @can('solicitud.destroy')

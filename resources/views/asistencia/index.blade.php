@@ -38,7 +38,7 @@
                            @endforeach
                        </tbody>
                    </table>
-
+                   {{ $something ?? ''->render() }}
 
             </div>
           </div>
